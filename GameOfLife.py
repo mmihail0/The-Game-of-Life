@@ -108,17 +108,18 @@ def bishop(current_square, pieces):
         plus_row -= 1
         plus_column += 1
         column = int(current_square[1]) + plus_column
-        row = letters[letters_index + plus_row]
-        while column != 8 and row != "a":
-            if letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column) not in pieces:
-                available_moves.append(letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column))
-                column = int(current_square[1]) + plus_column
-                row = letters[letters_index + plus_row]
-            else:
-                print(f"A piece is obstructing on {letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column)}")
-                break
-            plus_row -= 1
-            plus_column += 1
+        if letters_index + plus_row > 0:
+            row = letters[letters_index + plus_row]
+            while column <= 8 and row != "a":
+                if letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column) not in pieces:
+                    available_moves.append(letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column))
+                    column = int(current_square[1]) + plus_column
+                    row = letters[letters_index + plus_row]
+                else:
+                    print(f"A piece is obstructing on {letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column)}")
+                    break
+                plus_row -= 1
+                plus_column += 1
 
     #check left down diagonal
     def left_down():
@@ -131,17 +132,18 @@ def bishop(current_square, pieces):
         plus_row -= 1
         plus_column -= 1
         column = int(current_square[1]) + plus_column
-        row = letters[letters_index + plus_row]
-        while column != 0 and row != "a":
-            if letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column) not in pieces:
-                available_moves.append(letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column))
-                column = int(current_square[1]) + plus_column
-                row = letters[letters_index + plus_row]
-            else:
-                print(f"A piece is obstructing on {letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column)}")
-                break
-            plus_row -= 1
-            plus_column -= 1
+        if letters_index + plus_row > 0:
+            row = letters[letters_index + plus_row]
+            while column > 0 and row != "a":
+                if letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column) not in pieces:
+                    available_moves.append(letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column))
+                    column = int(current_square[1]) + plus_column
+                    row = letters[letters_index + plus_row]
+                else:
+                    print(f"A piece is obstructing on {letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column)}")
+                    break
+                plus_row -= 1
+                plus_column -= 1
 
     #check right up diagonal
     def right_up():
@@ -154,17 +156,18 @@ def bishop(current_square, pieces):
         plus_row += 1
         plus_column += 1
         column = int(current_square[1]) + plus_column
-        row = letters[letters_index + plus_row]
-        while column != 8 and row != "h":
-            if letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column) not in pieces:
-                available_moves.append(letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column))
-                column = int(current_square[1]) + plus_column
-                row = letters[letters_index + plus_row]
-            else:
-                print(f"A piece is obstructing on {letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column)}")
-                break
-            plus_row += 1
-            plus_column += 1
+        if letters_index + plus_row < 8:
+            row = letters[letters_index + plus_row]
+            while column <= 8 and row != "h":
+                if letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column) not in pieces:
+                    available_moves.append(letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column))
+                    column = int(current_square[1]) + plus_column
+                    row = letters[letters_index + plus_row]
+                else:
+                    print(f"A piece is obstructing on {letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column)}")
+                    break
+                plus_row += 1
+                plus_column += 1
 
     #check right down diagonal
     def right_down():
@@ -177,19 +180,18 @@ def bishop(current_square, pieces):
         plus_row += 1
         plus_column -= 1
         column = int(current_square[1]) + plus_column
-        row = letters[letters_index + plus_row]
-        while column != 0 and row != "h":
-            plus_row += 1
-            plus_column -= 1
-            if letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column) not in pieces:
-                available_moves.append(letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column))
-                column = int(current_square[1]) + plus_column
-                row = letters[letters_index + plus_row]
-            else:
-                print(f"A piece is obstructing on {letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column)}")
-                break
-            plus_row += 1
-            plus_column -= 1
+        if letters_index + plus_row < 8:
+            row = letters[letters_index + plus_row]
+            while column > 0 and row != "h":
+                if letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column) not in pieces:
+                    available_moves.append(letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column))
+                    column = int(current_square[1]) + plus_column
+                    row = letters[letters_index + plus_row]
+                else:
+                    print(f"A piece is obstructing on {letters[letters_index + plus_row] + str(int(current_square[1]) + plus_column)}")
+                    break
+                plus_row += 1
+                plus_column -= 1
 
     left_up()
     left_down()
@@ -209,7 +211,7 @@ def bishop(current_square, pieces):
 #testing
 
 board_setup()
-bishop("a1", ["a8"])
+bishop("a8", ["h8"])
 
 
 

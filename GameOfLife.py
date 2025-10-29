@@ -91,8 +91,7 @@ def rook(current_square, pieces):
     left()
     right()
     sorted(available_moves)
-    print(available_moves)
-
+    return available_moves
 
 def bishop(current_square, pieces):
     available_moves = []
@@ -101,8 +100,8 @@ def bishop(current_square, pieces):
     def left_up():
         letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
         for i in range(8):
-                if current_square[0] == letters[i]:
-                    letters_index = i
+            if current_square[0] == letters[i]:
+                letters_index = i
         plus_row = 0
         plus_column = 0
         plus_row -= 1
@@ -125,8 +124,8 @@ def bishop(current_square, pieces):
     def left_down():
         letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
         for i in range(8):
-                if current_square[0] == letters[i]:
-                    letters_index = i
+            if current_square[0] == letters[i]:
+                letters_index = i
         plus_row = 0
         plus_column = 0
         plus_row -= 1
@@ -149,8 +148,8 @@ def bishop(current_square, pieces):
     def right_up():
         letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
         for i in range(8):
-                if current_square[0] == letters[i]:
-                    letters_index = i
+            if current_square[0] == letters[i]:
+                letters_index = i
         plus_row = 0
         plus_column = 0
         plus_row += 1
@@ -173,8 +172,8 @@ def bishop(current_square, pieces):
     def right_down():
         letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
         for i in range(8):
-                if current_square[0] == letters[i]:
-                    letters_index = i
+            if current_square[0] == letters[i]:
+                letters_index = i
         plus_row = 0
         plus_column = 0
         plus_row += 1
@@ -198,11 +197,87 @@ def bishop(current_square, pieces):
     right_up()
     right_down()
     sorted(available_moves)
-    print(available_moves)
+    return available_moves
 
-   
+def queen(current_square, pieces):
+    available_moves = []
+    available_moves_rook = rook(current_square, pieces)
+    available_moves_bishop = bishop(current_square, pieces)
+    for i in range(len(available_moves_rook)):
+        available_moves.append(available_moves_rook[i])
+    for i in range(len(available_moves_bishop)):
+        available_moves.append(available_moves_bishop[i])
+    
+    return available_moves
 
+def knight(current_square, pieces):
+    available_moves = []
+    letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    for i in range(8):
+        if current_square[0] == letters[i]:
+            letters_index = i
 
+    def up():
+        if int(current_square[1]) + 2 <= 8:
+            if current_square[0] == "a":
+                if letters[letters_index + 1] + str(int(current_square[1]) + 2) not in pieces:
+                    available_moves.append(letters[letters_index + 1] + str(int(current_square[1]) + 2))
+            elif current_square[0] == "h":
+                if letters[letters_index - 1] + str(int(current_square[1]) + 2) not in pieces:
+                    available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) + 2))
+            else:
+                if letters[letters_index - 1] + str(int(current_square[1]) + 2) not in pieces:
+                    available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) + 2))
+                if letters[letters_index + 1] + str(int(current_square[1]) + 2) not in pieces:
+                    available_moves.append(letters[letters_index + 1] + str(int(current_square[1]) + 2))
+
+    def down():
+        if int(current_square[1]) - 2 >= 0:
+            if current_square[0] == "a":
+                if letters[letters_index + 1] + str(int(current_square[1]) - 2) not in pieces:
+                    available_moves.append(letters[letters_index + 1] + str(int(current_square[1]) - 2))
+            elif current_square[0] == "h":
+                if letters[letters_index - 1] + str(int(current_square[1]) - 2) not in pieces:
+                    available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) - 2))
+            else:
+                if letters[letters_index - 1] + str(int(current_square[1]) - 2) not in pieces:
+                    available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) - 2))
+                if letters[letters_index + 1] + str(int(current_square[1]) - 2) not in pieces:
+                    available_moves.append(letters[letters_index + 1] + str(int(current_square[1]) - 2))
+    
+    def left():
+        if letters_index - 2 >= 0:
+            if int(current_square[1]) == 1:
+                if letters[letters_index - 2] + str(int(current_square[1]) + 1) not in pieces:
+                    available_moves.append(letters[letters_index - 2] + str(int(current_square[1]) + 1))
+            elif int(current_square[1]) == 8:
+                if letters[letters_index - 2] + str(int(current_square[1]) - 1) not in pieces:
+                    available_moves.append(letters[letters_index - 2] + str(int(current_square[1]) - 1))
+            else:
+                if letters[letters_index - 2] + str(int(current_square[1]) + 1) not in pieces:
+                    available_moves.append(letters[letters_index - 2] + str(int(current_square[1]) + 1))
+                if letters[letters_index - 2] + str(int(current_square[1]) - 1) not in pieces:
+                    available_moves.append(letters[letters_index - 2] + str(int(current_square[1]) - 1))
+
+    def right():
+        if letters_index + 2 <= 8:
+            if int(current_square[1]) == 1:
+                if letters[letters_index + 2] + str(int(current_square[1]) + 1) not in pieces:
+                    available_moves.append(letters[letters_index + 2] + str(int(current_square[1]) + 1))
+            elif int(current_square[1]) == 8:
+                if letters[letters_index + 2] + str(int(current_square[1]) - 1) not in pieces:
+                    available_moves.append(letters[letters_index + 2] + str(int(current_square[1]) - 1))
+            else:
+                if letters[letters_index + 2] + str(int(current_square[1]) + 1) not in pieces:
+                    available_moves.append(letters[letters_index + 2] + str(int(current_square[1]) + 1))
+                if letters[letters_index + 2] + str(int(current_square[1]) - 1) not in pieces:
+                    available_moves.append(letters[letters_index + 2] + str(int(current_square[1]) - 1))
+
+    up()
+    down()
+    left()
+    right()
+    return sorted(available_moves)
 
 
 
@@ -211,7 +286,7 @@ def bishop(current_square, pieces):
 #testing
 
 board_setup()
-bishop("a8", ["h8"])
+print(knight("e5", ["b2"]))
 
 
 

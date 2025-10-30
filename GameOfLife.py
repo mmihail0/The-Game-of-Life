@@ -269,14 +269,57 @@ def knight(current_square):
     right()
     return sorted(available_moves)
 
+def pawn_white(current_square, pieces, previous_move, double_move):
+    available_moves = []
+    letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    for i in range(8):
+        if current_square[0] == letters[i]:
+            letters_index = i
 
-    
+    #movement
+    if current_square[0] + str(int(current_square[1]) + 1) not in pieces: #move 1 square
+        available_moves.append(current_square[0] + str(int(current_square[1]) + 1))
+        if current_square[0] + str(int(current_square[1]) + 2) not in pieces and int(current_square[1]) == 2: #move 2 squares if still on the 2nd rank
+            available_moves.append(current_square[0] + str(int(current_square[1]) + 2))
+    #capturing
+    if current_square[0] != "h":
+        if letters[letters_index + 1] + str(int(current_square[1]) + 1) in pieces: #capturing to the right
+            available_moves.append(letters[letters_index + 1] + str(int(current_square[1]) + 1))
+    if current_square[0] != "a":
+        if letters[letters_index - 1] + str(int(current_square[1]) + 1) in pieces: #capturing to the left
+            available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) + 1))
+    #enpassant
+    '''if previous_move[0].islower() :
+        if double_move == True:'''
+
+def pawn_black(current_square, pieces, previous_move, double_move):
+    available_moves = []
+    letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    for i in range(8):
+        if current_square[0] == letters[i]:
+            letters_index = i
+
+    #movement
+    if current_square[0] + str(int(current_square[1]) - 1) not in pieces: #move 1 square
+        available_moves.append(current_square[0] + str(int(current_square[1]) - 1))
+        if current_square[0] + str(int(current_square[1]) - 2) not in pieces and int(current_square[1]) == 7: #move 2 squares if still on the 2nd rank
+            available_moves.append(current_square[0] + str(int(current_square[1]) - 2))
+    #capturing
+    if current_square[0] != "h":
+        if letters[letters_index + 1] + str(int(current_square[1]) - 1) in pieces: #capturing to the right
+            available_moves.append(letters[letters_index + 1] + str(int(current_square[1]) - 1))
+    if current_square[0] != "a":
+        if letters[letters_index - 1] + str(int(current_square[1]) - 1) in pieces: #capturing to the left
+            available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) - 1))
+    #enpassant
+    '''if previous_move[0].islower() :
+        if double_move == True:'''
 
 
 #testing
 
 board_setup()
-print(rook("e5", ["e7"]))
+print(knight("d5"))
 
 
 

@@ -9,6 +9,20 @@ covered_squares_white = [] #all squares that white coveres - black king cant go 
 covered_squares_black = [] #all squares that black coveres - white king cant go there  :str
 #current_square format = letter+number                                                 :str
 
+white_king = []
+white_pawns = []
+white_queens = []
+white_bishops = []
+white_knights = []
+white_rooks = []
+
+black_king = []
+black_pawns = []
+black_queens = []
+black_bishops = []
+black_knights = []
+black_rooks = []
+
 
 
 def board_setup():
@@ -16,6 +30,43 @@ def board_setup():
     for i in range(8):
         for number in range(8):
             squares.append(letter[i]+str(number+1))
+    print("Hi")
+    white_king.append("e1")
+    white_pawns.append("a2")
+    white_pawns.append("b2")
+    white_pawns.append("c2")
+    white_pawns.append("d2")
+    white_pawns.append("e2")
+    white_pawns.append("f2")
+    white_pawns.append("g2")
+    white_pawns.append("h2")
+    white_queens.append("d1")
+    white_bishops.append("c1")
+    white_bishops.append("f1")
+    white_knights.append("b1")
+    white_knights.append("g1")
+    white_rooks.append("a1")
+    white_rooks.append("h1")
+
+    black_king.append("e8")
+    black_pawns.append("a7")
+    black_pawns.append("b7")
+    black_pawns.append("c7")
+    black_pawns.append("d7")
+    black_pawns.append("e7")
+    black_pawns.append("f7")
+    black_pawns.append("g7")
+    black_pawns.append("h7")
+    black_queens.append("d8")
+    black_bishops.append("c8")
+    black_bishops.append("f8")
+    black_knights.append("b8")
+    black_knights.append("g8")
+    black_rooks.append("a8")
+    black_rooks.append("h8")
+
+    for i in range(8):   #prints an ASCII diagram of the chess board from whites perspective
+        print(squares[(7-i)*8:(8-i)*8])
 
 
 
@@ -320,7 +371,7 @@ def pawn_black(current_square, pieces, previous_move, double_move):
         if double_move == True:'''
 
 def king_white(current_square, pieces, covered_squares_black):
-    isCheckmate = False
+    isInCheck = False
     available_moves = []
     letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
     for i in range(8):
@@ -345,11 +396,13 @@ def king_white(current_square, pieces, covered_squares_black):
     if letters[letters_index - 1] + str(int(current_square[1]) - 1) not in pieces and letters[letters_index - 1] + str(int(current_square[1]) - 1) not in covered_squares_black and int(current_square[1]) != 1 and current_square[0] != "a": #move left-down
         available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) - 1))
 
-    if len(available_moves) == 0 and current_square in covered_squares_black: #checkmate
-        isCheckmate = True
-    return sorted(available_moves), isCheckmate
+    if current_square in pieces: #in check
+        isInCheck = True
+
+    return sorted(available_moves), isInCheck
 
 def king_black(current_square, pieces, covered_squares_white):
+    isInCheck = False
     available_moves = []
     letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
     for i in range(8):
@@ -374,10 +427,29 @@ def king_black(current_square, pieces, covered_squares_white):
     if letters[letters_index - 1] + str(int(current_square[1]) - 1) not in pieces and letters[letters_index - 1] + str(int(current_square[1]) - 1) not in covered_squares_white and int(current_square[1]) != 1 and current_square[0] != "a": #move left-down
         available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) - 1))
 
-    if len(available_moves) == 0 and current_square in covered_squares_white: #checkmate
-        isCheckmate = True
+    if current_square in covered_squares_white: #in check
+        isInCheck = True
 
-    return sorted(available_moves), isCheckmate
+    return sorted(available_moves), isInCheck
+
+
+
+
+def locate_all_pieces(white_king, white_pawns, white_queens, white_bishops, white_knights, white_rooks, black_king, black_pawns, black_queens, black_bishops, black_knights, black_rooks):
+    pieces = white_king + white_pawns + white_queens + white_bishops + white_knights + white_rooks + black_king + black_pawns + black_queens + black_bishops + black_knights + black_rooks 
+    pieces_white = white_king + white_pawns + white_queens + white_bishops + white_knights + white_rooks
+    pieces_black = black_king + black_pawns + black_queens + black_bishops + black_knights + black_rooks
+    return pieces, pieces_white, pieces_black
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -385,9 +457,11 @@ def king_black(current_square, pieces, covered_squares_white):
 #testing
 
 board_setup()
-pieces_white = ["a2", "b2"]
+pieces, pieces_white, pieces_black = locate_all_pieces(white_king, white_pawns, white_queens, white_bishops, white_knights, white_rooks, black_king, black_pawns, black_queens, black_bishops, black_knights, black_rooks)
+#print(pieces)
 covered_squares_black = ["b1", "a1"]
 print(king_white("a1", pieces_white, covered_squares_black))
+
 
 
 

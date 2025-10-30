@@ -344,6 +344,8 @@ def king_white(current_square, pieces, covered_squares_black):
     if letters[letters_index - 1] + str(int(current_square[1]) - 1) not in pieces and letters[letters_index - 1] + str(int(current_square[1]) - 1) not in covered_squares_black and int(current_square[1]) != 1 and current_square[0] != "a": #move left-down
         available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) - 1))
 
+    return sorted(available_moves)
+
 def king_black(current_square, pieces, covered_squares_white):
     available_moves = []
     letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
@@ -369,6 +371,7 @@ def king_black(current_square, pieces, covered_squares_white):
     if letters[letters_index - 1] + str(int(current_square[1]) - 1) not in pieces and letters[letters_index - 1] + str(int(current_square[1]) - 1) not in covered_squares_white and int(current_square[1]) != 1 and current_square[0] != "a": #move left-down
         available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) - 1))
 
+    return sorted(available_moves)
 
 
 
@@ -376,7 +379,7 @@ def king_black(current_square, pieces, covered_squares_white):
 #testing
 
 board_setup()
-print(knight("d5"))
+print(king_white("a1"))
 
 
 

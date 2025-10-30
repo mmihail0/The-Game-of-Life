@@ -1,9 +1,13 @@
 #defines "board_setup"
 
 #globals
-squares = [] #all the squares            :str
-pieces = [] #all the pieces locations    :str
-#current_square format = letter+number   :str
+squares = [] #all the squares                                                          :str
+pieces = [] #all the pieces locations                                                  :str
+pieces_white = [] #all of whites pieces locations                                      :str
+pieces_black = [] #all of blacks pieces locations                                      :str
+covered_squares_white = [] #all squares that white coveres - black king cant go there  :str
+covered_squares_black = [] #all squares that black coveres - white king cant go there  :str
+#current_square format = letter+number                                                 :str
 
 
 
@@ -314,6 +318,59 @@ def pawn_black(current_square, pieces, previous_move, double_move):
     #enpassant
     '''if previous_move[0].islower() :
         if double_move == True:'''
+
+def king_white(current_square, pieces, covered_squares_black):
+    available_moves = []
+    letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    for i in range(8):
+        if current_square[0] == letters[i]:
+            letters_index = i
+    #perpendicular movement
+    if current_square[0] + str(int(current_square[1]) + 1) not in pieces and current_square[0] + str(int(current_square[1]) + 1) not in covered_squares_black and int(current_square[1]) != 8: #move up
+        available_moves.append(current_square[0] + str(int(current_square[1]) + 1))
+    if current_square[0] + str(int(current_square[1]) - 1) not in pieces and current_square[0] + str(int(current_square[1]) - 1) not in covered_squares_black and int(current_square[1]) != 1: #move down
+        available_moves.append(current_square[0] + str(int(current_square[1]) - 1))
+    if letters[letters_index + 1] + current_square[1] not in pieces and letters[letters_index + 1] + current_square[1] not in covered_squares_black and current_square[0] != "h": #move right
+        available_moves.append(letters[letters_index + 1] + current_square[1])
+    if letters[letters_index - 1] + current_square[1] not in pieces and letters[letters_index - 1] + current_square[1] not in covered_squares_black and current_square[0] != "a": #move left
+        available_moves.append(letters[letters_index - 1] + current_square[1])
+    #diagonal movement
+    if letters[letters_index + 1] + str(int(current_square[1]) + 1) not in pieces and letters[letters_index + 1] + str(int(current_square[1]) + 1) not in covered_squares_black and int(current_square[1]) != 8 and current_square[0] != "h": #move right-up
+        available_moves.append(letters[letters_index + 1] + str(int(current_square[1]) + 1))
+    if letters[letters_index + 1] + str(int(current_square[1]) - 1) not in pieces and letters[letters_index + 1] + str(int(current_square[1]) - 1) not in covered_squares_black and int(current_square[1]) != 1 and current_square[0] != "h": #move right-down
+        available_moves.append(letters[letters_index + 1] + str(int(current_square[1]) - 1))
+    if letters[letters_index - 1] + str(int(current_square[1]) + 1) not in pieces and letters[letters_index - 1] + str(int(current_square[1]) + 1) not in covered_squares_black and int(current_square[1]) != 8 and current_square[0] != "a": #move left-up
+        available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) + 1))
+    if letters[letters_index - 1] + str(int(current_square[1]) - 1) not in pieces and letters[letters_index - 1] + str(int(current_square[1]) - 1) not in covered_squares_black and int(current_square[1]) != 1 and current_square[0] != "a": #move left-down
+        available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) - 1))
+
+def king_black(current_square, pieces, covered_squares_white):
+    available_moves = []
+    letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    for i in range(8):
+        if current_square[0] == letters[i]:
+            letters_index = i
+    #perpendicular movement
+    if current_square[0] + str(int(current_square[1]) + 1) not in pieces and current_square[0] + str(int(current_square[1]) + 1) not in covered_squares_white and int(current_square[1]) != 8: #move up
+        available_moves.append(current_square[0] + str(int(current_square[1]) + 1))
+    if current_square[0] + str(int(current_square[1]) - 1) not in pieces and current_square[0] + str(int(current_square[1]) - 1) not in covered_squares_white and int(current_square[1]) != 1: #move down
+        available_moves.append(current_square[0] + str(int(current_square[1]) - 1))
+    if letters[letters_index + 1] + current_square[1] not in pieces and letters[letters_index + 1] + current_square[1] not in covered_squares_white and current_square[0] != "h": #move right
+        available_moves.append(letters[letters_index + 1] + current_square[1])
+    if letters[letters_index - 1] + current_square[1] not in pieces and letters[letters_index - 1] + current_square[1] not in covered_squares_white and current_square[0] != "a": #move left
+        available_moves.append(letters[letters_index - 1] + current_square[1])
+    #diagonal movement
+    if letters[letters_index + 1] + str(int(current_square[1]) + 1) not in pieces and letters[letters_index + 1] + str(int(current_square[1]) + 1) not in covered_squares_white and int(current_square[1]) != 8 and current_square[0] != "h": #move right-up
+        available_moves.append(letters[letters_index + 1] + str(int(current_square[1]) + 1))
+    if letters[letters_index + 1] + str(int(current_square[1]) - 1) not in pieces and letters[letters_index + 1] + str(int(current_square[1]) - 1) not in covered_squares_white and int(current_square[1]) != 1 and current_square[0] != "h": #move right-down
+        available_moves.append(letters[letters_index + 1] + str(int(current_square[1]) - 1))
+    if letters[letters_index - 1] + str(int(current_square[1]) + 1) not in pieces and letters[letters_index - 1] + str(int(current_square[1]) + 1) not in covered_squares_white and int(current_square[1]) != 8 and current_square[0] != "a": #move left-up
+        available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) + 1))
+    if letters[letters_index - 1] + str(int(current_square[1]) - 1) not in pieces and letters[letters_index - 1] + str(int(current_square[1]) - 1) not in covered_squares_white and int(current_square[1]) != 1 and current_square[0] != "a": #move left-down
+        available_moves.append(letters[letters_index - 1] + str(int(current_square[1]) - 1))
+
+
+
 
 
 #testing

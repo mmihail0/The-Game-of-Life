@@ -27,10 +27,10 @@ black_rooks = []
 
 def board_setup():
     letter = ["a", "b", "c", "d", "e", "f", "g", "h"]
-    for i in range(8):
-        for number in range(8):
+    for number in range(8):
+        for i in range(8):
             squares.append(letter[i]+str(number+1))
-    print("Hi")
+
     white_king.append("e1")
     white_pawns.append("a2")
     white_pawns.append("b2")
@@ -65,8 +65,11 @@ def board_setup():
     black_rooks.append("a8")
     black_rooks.append("h8")
 
+
+
     for i in range(8):   #prints an ASCII diagram of the chess board from whites perspective
         print(squares[(7-i)*8:(8-i)*8])
+
 
 
 

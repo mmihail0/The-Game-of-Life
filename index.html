@@ -1,81 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ripple Gradient Button</title>
-  <style>
-    body {
-      background-color: #0f0f0f;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-      color: white;
-    }
+<!DOCTYPE html>  
+<html>  
+<head>  
+  <style>  
+    .green-button {  
+      font-size: 20px;  
+      color: white;  
+      background: linear-gradient(135deg, #00c853, #4caf50);  
+      border: none;  
+      border-radius: 4px;  
+      padding: 10px 20px;  
+      text-decoration: none;  
+      display: inline-block;  
+      cursor: pointer;  
+      position: relative;  
+      overflow: hidden;  
+      transition: transform 0.2s;  
+    }  
+  
+    .green-button:hover {  
+      transform: translateY(-2px);  
+    }  
 
-    .green-button {
-      position: relative;
-      font-size: 20px;
-      color: white;
-      background: linear-gradient(135deg, #00c853, #4caf50);
-      border: none;
-      border-radius: 8px;
-      padding: 14px 32px;
-      text-decoration: none;
-      display: inline-block;
-      overflow: hidden;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0, 255, 0, 0.3);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
+    /* Ripple effect */
+    .fx-rings::before {  
+      content: "";  
+      position: absolute;  
+      top: 50%;  
+      left: 50%;  
+      width: 20px;  
+      height: 20px;  
+      background: rgba(255, 255, 255, 0.4);  
+      border-radius: 50%;  
+      transform: translate(-50%, -50%) scale(0);  
+      opacity: 0;  
+      transition: transform 0.6s ease-out, opacity 0.6s ease-out;  
+      pointer-events: none;  
+    }  
 
-    .green-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0, 255, 0, 0.5);
-    }
-
-    /* Ripple ring effect */
-    .fx-rings::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 20px;
-      height: 20px;
-      background: rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-      transform: translate(-50%, -50%) scale(0);
-      opacity: 0;
-      animation: none;
-      pointer-events: none;
-    }
-
-    /* Trigger ripple animation on click */
-    .green-button:active::before {
-      animation: ring-expand 0.6s ease-out;
-    }
-
-    /* Define the ripple animation */
-    @keyframes ring-expand {
-      0% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0.8;
-      }
-      100% {
-        transform: translate(-50%, -50%) scale(8);
-        opacity: 0;
-      }
-    }
-  </style>
-</head>
-<body>
-  <p>This is the game of life</p>
-  <a href="https://www.youtube.com/watch?v=a7OzklvX9ic"
-     class="green-button fx-rings">
-    Micro transactions here 💵🤑💸💳💳
-  </a>
-</body>
+    .green-button:hover::before {  
+      transform: translate(-50%, -50%) scale(8);  
+      opacity: 0;  
+    }  
+  </style>  
+</head>  
+<body>  
+  <p>This is the game of life</p>  
+  <a href="https://www.youtube.com/watch?v=a7OzklvX9ic" class="green-button fx-rings">  
+    Micro transactions here 💵🤑💸💳💳  
+  </a>  
+</body>  
 </html>
